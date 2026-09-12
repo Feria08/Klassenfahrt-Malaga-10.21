@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klassenfahrt Málaga 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#fbf3e3;
+    --sand-deep:#f1e2c2;
+    --sky:#bfe6f5;
+    --sky-deep:#5fb8dc;
+    --sea:#8fd9cd;
+    --sea-deep:#379e93;
+    --coral:#ff9d7a;
+    --coral-deep:#f4713f;
+    --sun:#ffd166;
+    --sun-deep:#f2b332;
+    --ink:#2c3e40;
+    --ink-soft:#5c6d70;
+    --card:#ffffff;
+    --shadow: 0 4px 14px rgba(44,62,64,.10);
+    --radius: 18px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Nunito', system-ui, sans-serif;
+    background:
+      radial-gradient(circle at 90% -10%, var(--sun) 0%, transparent 40%),
+      linear-gradient(180deg, var(--sky) 0%, var(--sand) 32%);
+    color:var(--ink);
+    min-height:100vh;
+  }
+  h1,h2,h3{font-family:'Quicksand', 'Nunito', sans-serif;}
+  a{color:var(--sea-deep);}
+
+  /* ---------- header ---------- */
+  header.hero{
+    position:relative;
+    padding: 28px 18px 70px;
+    text-align:center;
+    overflow:hidden;
+  }
+  header.hero .sun{
+    position:absolute; top:-40px; right:-30px;
+    width:150px; height:150px; border-radius:50%;
+    background: radial-gradient(circle at 35% 35%, var(--sun) 0%, var(--sun-deep) 70%);
+    box-shadow: 0 0 60px 10px rgba(255,209,102,.55);
+    z-index:0;
+  }
+  header.hero .wave{
+    position:absolute; left:0; right:0; bottom:-2px; z-index:1; line-height:0;
+  }
+  header.hero h1{
+    position:relative; z-index:2;
+    font-size: clamp(1.7rem, 5vw, 2.6rem);
+    margin:6px 0 4px;
+    color:#1c3335;
+  }
+  header.hero p.sub{
+    position:relative; z-index:2;
+    margin:0; font-size:1rem; color:var(--ink-soft); font-weight:600;
+  }
+  header.hero .badge{
+    position:relative; z-index:2;
+    display:inline-block; margin-top:12px; padding:6px 16px;
+    background:var(--card); border-radius:999px; box-shadow:var(--shadow);
+    font-weight:700; font-size:.85rem; color:var(--coral-deep);
+  }
+
+  /* ---------- nav tabs ---------- */
+  nav.tabs{
+    position:sticky; top:0; z-index:50;
+    display:flex; gap:6px; overflow-x:auto;
+    padding:10px 12px;
+    background:rgba(251,243,227,.92); backdrop-filter: blur(6px);
+    border-bottom:2px solid var(--sand-deep);
+    -webkit-overflow-scrolling: touch;
+  }
+  nav.tabs button{
+    flex: 0 0 auto;
+    font-family:'Quicksand', sans-serif;
+    font-weight:700; font-size:.92rem;
+    padding:9px 16px; border-radius:999px;
+    border:2px solid transparent;
+    background:#fff; color:var(--ink-soft);
+    cursor:pointer; white-space:nowrap;
+    transition: all .15s ease;
+  }
+  nav.tabs button:hover{ border-color: var(--sea); }
+  nav.tabs button[aria-selected="true"]{
+    background: linear-gradient(135deg, var(--coral), var(--sun));
+    color:#fff; box-shadow: var(--shadow);
+  }
+
+  main{ max-width: 980px; margin: 0 auto; padding: 22px 16px 60px; }
+  section.panel{ display:none; animation: fade .25s ease; }
+  section.panel.active{ display:block; }
+  @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  .card{
+    background:var(--card); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:18px 20px; margin-bottom:16px;
+  }
+  .card h2{ margin-top:0; color:#1c3335; font-size:1.3rem;}
+  .card h3{ color:var(--sea-deep); font-size:1.02rem; margin:14px 0 6px;}
+  .pill-row{ display:flex; flex-wrap:wrap; gap:8px; margin: 6px 0 4px;}
+  .pill{ background:var(--sea); color:#0e3d38; font-weight:700; font-size:.8rem; padding:5px 12px; border-radius:999px;}
+
+  ul.nice{ padding-left: 20px; margin:6px 0; }
+  ul.nice li{ margin-bottom:5px; line-height:1.45; }
+
+  /* day cards in Programm */
+  .day{
+    border:2px solid var(--sand-deep); border-radius: 14px;
+    margin-bottom:14px; overflow:hidden;
+  }
+  .day summary{
+    cursor:pointer; list-style:none; padding:12px 16px;
+    font-family:'Quicksand', sans-serif; font-weight:700;
+    display:flex; align-items:center; justify-content:space-between;
+    background: linear-gradient(135deg, var(--sky), var(--sea));
+    color:#0e3d38;
+  }
+  .day summary::-webkit-details-marker{ display:none; }
+  .day summary .arrow{ transition: transform .2s ease; }
+  .day[open] summary .arrow{ transform: rotate(90deg); }
+  .day .body{ padding: 12px 16px 16px; }
+  .slot{ margin:0 0 10px; padding-left:12px; border-left:3px solid var(--coral); }
+  .slot .time{ font-weight:800; color:var(--coral-deep); display:block; font-size:.85rem; }
+
+  .room-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap:10px; margin-top:8px;}
+  .room-box{ background:var(--sand); border-radius:12px; padding:10px 12px; text-align:center;}
+  .room-box .name{ font-weight:700; font-size:.85rem; color:var(--ink-soft);}
+  .room-box .initials{ font-family:'Quicksand',sans-serif; font-size:1.15rem; font-weight:700; color:var(--sea-deep); margin-top:4px; letter-spacing:1px;}
+
+  .callout{
+    border:2px dashed var(--coral); background:#fff5ef; border-radius:14px;
+    padding:14px 16px; margin:14px 0; font-size:.92rem;
+  }
+  .callout b{ color:var(--coral-deep); }
+
+  .emg{
+    background: linear-gradient(135deg, var(--sea-deep), var(--sky-deep));
+    color:#fff; border-radius: var(--radius);
+    padding:16px 20px; font-size:.88rem; line-height:1.5;
+  }
+  .emg b{ display:block; margin-bottom:4px; }
+
+  footer{ text-align:center; padding:20px; color:var(--ink-soft); font-size:.8rem; }
+
+  @media (max-width:520px){
+    header.hero{ padding:20px 12px 55px; }
+    .card{ padding:15px 15px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="sun"></div>
+  <h1>🌞 Klassenfahrt Málaga 2026</h1>
+  <p class="sub">13.–18. September 2026 · Torremolinos & Andalusien</p>
+  <span class="badge">Klasse 10.21</span>
+  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="width:100%;height:40px;">
+    <path fill="#fbf3e3" d="M0,32 C240,60 480,0 720,20 C960,40 1200,60 1440,24 L1440,60 L0,60 Z"></path>
+  </svg>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Bereiche">
+  <button role="tab" aria-selected="true" data-tab="start">🏠 Start</button>
+  <button role="tab" aria-selected="false" data-tab="torremolinos">🏖️ Torremolinos</button>
+  <button role="tab" aria-selected="false" data-tab="hotel">🏨 Hotel</button>
+  <button role="tab" aria-selected="false" data-tab="programm">📅 Programm</button>
+  <button role="tab" aria-selected="false" data-tab="regeln">📋 Regeln</button>
+  <button role="tab" aria-selected="false" data-tab="ergebnisse">📸 Unsere Ergebnisse und Erfahrungen</button>
+</nav>
+
+<main>
+
+<!-- ============ START ============ -->
+<section class="panel active" id="start" role="tabpanel">
+  <div class="card">
+    <h2>Willkommen zu unserer Klassenfahrt! ☀️</h2>
+    <p>Hier findet ihr während der ganzen Woche alle wichtigen Infos: unseren Tagesablauf, alles zu unserem Hotel,
+    unsere gemeinsamen Regeln und Infos zu Torremolinos. Schaut am besten jeden Abend kurz rein, damit ihr wisst, was am nächsten Tag ansteht.</p>
+    <div class="pill-row">
+      <span class="pill">✈️ Hinflug So 06:05 Uhr ab BER</span>
+      <span class="pill">🏨 Hotel Natursun, Torremolinos</span>
+      <span class="pill">✈️ Rückflug Fr 17:20 Uhr ab Málaga</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>So funktioniert die Seite</h3>
+    <ul class="nice">
+      <li>Oben auf die Reiter tippen, um zwischen den Bereichen zu wechseln</li>
+      <li>Unter <b>Programm</b> auf einen Tag tippen, um den Ablauf aufzuklappen</li>
+      <li>Unter <b>Unsere Ergebnisse und Erfahrungen</b> könnt ihr am Montag und Donnerstag eure Fotos hochladen</li>
+      <li>Diese Seite am besten als Lesezeichen/Homescreen-Symbol speichern</li>
+    </ul>
+  </div>
+
+  <div class="emg">
+    <b>📞 Wichtige Nummern für unterwegs</b>
+    Reiseleitung (unsere Gruppe): +49 15751557603<br>
+    Örtliche Betreuung Agitour: +34 629 84 59 60 (dt.) · +34 630 68 59 55 (engl./span.)<br>
+    CTS-Notruf 24/7: +49 (0)180 5 25 06 80 · Hotel Natursun: +34 951 24 13 64
+  </div>
+</section>
+
+<!-- ============ TORREMOLINOS ============ -->
+<section class="panel" id="torremolinos" role="tabpanel">
+  <div class="card">
+    <h2>🏖️ Infosheet Torremolinos</h2>
+    <p>Unser Hotel liegt zwischen der Playa La Carihuela und dem Zentrum. Speichert euch am besten einen Screenshot
+    aus Google Maps ("Hotel Natursun Torremolinos") auf dem Handy für die Orientierung.</p>
+
+    <h3>🚆 Bahn</h3>
+    <p>Bahnhof <b>Torremolinos</b> (RENFE Cercanías, Linie C1) an der Plaza de la Nogalera / Calle San Miguel,
+    ca. 10–15 Gehminuten vom Hotel. Züge alle ca. 20 Minuten Richtung Flughafen (AGP) &amp; Málaga-Centro sowie
+    Richtung Benalmádena/Fuengirola.</p>
+
+    <h3>🚌 Bus</h3>
+    <p>Örtliche Stadtbuslinien <b>T-1 (Torremolinos–Aloha)</b> und <b>T-2 (Torremolinos–Playamar)</b>. Zentraler
+    Busbahnhof im Ortszentrum, auch Fernbusse (z. B. nach Málaga) fahren von dort.</p>
+
+    <h3>🛒 Supermärkte</h3>
+    <p><b>Mercadona</b> (mehrere Filialen, u. a. Avda. Playamar) sowie kleinere Supermärkte/Kioske entlang des
+    Paseo Marítimo. Sonntags ggf. eingeschränkte Öffnungszeiten – in der touristischen Zone um Calle San Miguel
+    meist trotzdem geöffnet.</p>
+
+    <h3>🌊 Strände</h3>
+    <p><b>Playa La Carihuela</b> (ca. 5 Gehminuten vom Hotel) – ruhiger, ehemaliges Fischerviertel, gute Restaurants.<br>
+    <b>Playa El Bajondillo</b> (ca. 10 Gehminuten) – zentraler, mehr Trubel.<br>
+    Beide Strände sind <b>öffentlich zugänglich</b> und haben in der Saison (bis 30. September) <b>Rettungsschwimmer</b> –
+    während unserer ganzen Woche also im Einsatz.</p>
+
+    <h3>📍 Sehenswert in der Nähe</h3>
+    <ul class="nice">
+      <li><b>Calle San Miguel</b> – belebte Fußgängerzone mit Geschäften &amp; Cafés</li>
+      <li><b>Cuesta del Tajo</b> – malerische Treppengasse, verbindet Zentrum und Strand</li>
+      <li><b>Plaza Costa del Sol</b> – zentraler Treffpunkt/Platz</li>
+      <li><b>Paseo Marítimo</b> – lange Strandpromenade zum Spazierengehen</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ HOTEL ============ -->
+<section class="panel" id="hotel" role="tabpanel">
+  <div class="card">
+    <h2>🏨 Hotel Natursun Torremolinos</h2>
+    <p>Pasaje Santa Mónica 4 · 29620 Torremolinos · Tel. +34 951 24 13 64</p>
+    <ul class="nice">
+      <li><b>Lage:</b> ca. 5 Gehminuten zur Playa La Carihuela, ca. 10 Gehminuten zum Zentrum/Calle San Miguel und zum Bahnhof La Nogalera</li>
+      <li><b>Check-in:</b> ab 15:00 Uhr · <b>Check-out:</b> bis 12:00 Uhr (Gepäckaufbewahrung an der Rezeption möglich)</li>
+      <li><b>Kaution:</b> 20 € pro Person, bar bei Ankunft (Rückerstattung bei Abreise, sofern kein Schaden)</li>
+      <li><b>Zimmer:</b> Mehrbettzimmer (3–7 Betten, teils Etagenbetten), alle mit Dusche/WC &amp; Klimaanlage, teils mit Balkon</li>
+      <li><b>Frühstück:</b> 08:00–10:30 Uhr (Buffet)</li>
+      <li><b>Abendessen:</b> für unsere Gruppe fest um <b>19:00 Uhr</b> (Hotel-Öffnungszeit 19:00–22:00 Uhr)</li>
+      <li><b>Pool &amp; Sonnenterrasse:</b> geöffnet ca. 10:00–20:00 Uhr</li>
+      <li><b>Weitere Ausstattung:</b> 24h-Rezeption, Bar, Restaurant, Getränke-/Snackautomat, Billard, kostenfreies WLAN (Zugangsdaten an der Rezeption erfragen)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🛏️ Zimmeraufteilung</h2>
+    <p style="font-size:.85rem;color:var(--ink-soft);">Aus Datenschutzgründen zeigen wir hier nur die Anfangsbuchstaben – die genaue Zuteilung hängt am Hotel/wisst ihr von eurer Lehrerin.</p>
+    <h3>Mädchenzimmer</h3>
+    <div class="room-grid">
+      <div class="room-box"><div class="name">Zimmer 1 (7)</div><div class="initials">H · F · S · M · J · D · L</div></div>
+      <div class="room-box"><div class="name">Zimmer 2 (7)</div><div class="initials">C · K · S · P · M · N · L</div></div>
+      <div class="room-box"><div class="name">Zimmer 3 (2)</div><div class="initials">A · A</div></div>
+      <div class="room-box"><div class="name">Zimmer 4 (3)</div><div class="initials">H · J · A</div></div>
+    </div>
+    <h3>Jungenzimmer</h3>
+    <div class="room-grid">
+      <div class="room-box"><div class="name">Zimmer 1 (3)</div><div class="initials">C · T · J</div></div>
+      <div class="room-box"><div class="name">Zimmer 2 (3)</div><div class="initials">J · L · P</div></div>
+      <div class="room-box"><div class="name">Zimmer 3 (3)</div><div class="initials">M · T · V</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMM ============ -->
+<section class="panel" id="programm" role="tabpanel">
+  <div class="card" style="margin-bottom:18px;">
+    <h2>📅 Unser Wochenplan</h2>
+    <p style="font-size:.88rem;color:var(--ink-soft);">Tippt auf einen Tag, um den Ablauf zu sehen. Alle Zeiten Ortszeit – kann sich vor Ort leicht ändern (Bus/Zug).</p>
+  </div>
+
+  <details class="day" open>
+    <summary>So 13.09. – Anreise &amp; Ankommen <span class="arrow">▶</span></summary>
+    <div class="body">
+      <div class="slot"><span class="time">06:05</span>Abflug BER (EJU5105) → 09:40 Ankunft Málaga</div>
+      <div class="slot"><span class="time">danach</span>Zug (Cercanías C1) zum Hotel, Gepäck einlagern (Check-in erst ab 15 Uhr), Torremolinos kennenlernen</div>
+      <div class="slot"><span class="time">Mittag</span>Zeit zum Einkaufen/Selbstverpflegung · Wochenbesprechung &amp; Aufgabenverteilung</div>
+      <div class="slot"><span class="time">15:00</span>Check-in, Zimmerbezug → Freizeit Pool/Strand</div>
+      <div class="slot"><span class="time">19:00</span>Abendessen</div>
+      <div class="slot"><span class="time">danach</span>Gemeinsamer Strandspaziergang, Tag ausklingen lassen</div>
+      <div class="slot"><span class="time">22:00 / 00:00</span>Zimmer / Nachtruhe</div>
+    </div>
+  </details>
+
+  <details class="day">
+    <summary>Mo 14.09. – GooseChase Málaga <span class="arrow">▶</span></summary>
+    <div class="body">
+      <div class="slot"><span class="time">08:30</span>Frühstück</div>
+      <div class="slot"><span class="time">09:15</span>Treffen → Zug nach Málaga</div>
+      <div class="slot"><span class="time">Vormittag</span><b>GooseChase-Rallye</b> in Kleingruppen (über die App)</div>
+      <div class="slot"><span class="time">Mittag/Nachm.</span>Mittagspause &amp; Freizeit/Stadtbummel in Málaga, Rückfahrt Zug</div>
+      <div class="slot"><span class="time">19:00</span>Abendessen</div>
+      <div class="slot"><span class="time">danach</span>Strandspaziergang, Tagesausklang</div>
+      <div class="slot"><span class="time">22:00 / 00:00</span>Zimmer / Nachtruhe</div>
+    </div>
+  </details>
+
+  <details class="day">
+    <summary>Di 15.09. – Granada (Ganztagesausflug) <span class="arrow">▶</span></summary>
+    <div class="body">
+      <div class="slot"><span class="time">08:00</span>Frühstück (früh, Bus kommt früh!)</div>
+      <div class="slot"><span class="time">08:45 / 09:00</span>Treffpunkt unten / Bus ab Hotel nach Granada</div>
+      <div class="slot"><span class="time">11:30</span><b>Alhambra</b>-Führung (dt. Guide, ca. 3 Std.: Nasridenpaläste, Alcazaba, Generalife)</div>
+      <div class="slot"><span class="time">Nachmittag</span>Freizeit in Granada: Albaicín, Mirador San Nicolás, Plaza Nueva, Alcaicería</div>
+      <div class="slot"><span class="time">abends</span>Rückfahrt Bus (Ankunft ca. 19 Uhr – Abendessen ggf. etwas später)</div>
+      <div class="slot"><span class="time">22:00 / 00:00</span>Zimmer / Nachtruhe</div>
+    </div>
+  </details>
+
+  <details class="day">
+    <summary>Mi 16.09. – Gibraltar <span class="arrow">▶</span></summary>
+    <div class="body">
+      <div class="slot"><span class="time">08:00</span>Frühstück (früh, Bus kommt früh!)</div>
+      <div class="slot"><span class="time">08:45 / 09:00</span>Treffpunkt unten / Bus ab Hotel nach Gibraltar</div>
+      <div class="slot"><span class="time">ca. 10:30</span>Grenze La Línea, zu Fuß über die Landebahn – <b>Ausweispflicht!</b></div>
+      <div class="slot"><span class="time">11:00</span>Casemates Square: Einstieg &amp; Regeln</div>
+      <div class="slot"><span class="time">11:15–12:00</span>Bus Nr. 2 zum Europa Point und zurück</div>
+      <div class="slot"><span class="time">12:30–14:30</span><b>GooseChase</b> in Gibraltar (Main Street/Casemates)</div>
+      <div class="slot"><span class="time">15:30 / 16:00</span>Rückweg über die Grenze / Bus zurück</div>
+      <div class="slot"><span class="time">19:00</span>Abendessen</div>
+      <div class="slot"><span class="time">danach</span><b>Freie Zeitgestaltung</b> – jede:r entscheidet selbst (im Rahmen der Zimmerzeiten)</div>
+      <div class="slot"><span class="time">22:00 / 00:00</span>Zimmer / Nachtruhe</div>
+    </div>
+  </details>
+
+  <details class="day">
+    <summary>Do 17.09. – Málaga (Wahlprogramm) &amp; Beachparty <span class="arrow">▶</span></summary>
+    <div class="body">
+      <div class="slot"><span class="time">08:30</span>Frühstück</div>
+      <div class="slot"><span class="time">09:15</span>Treffen → Zug nach Málaga</div>
+      <div class="slot"><span class="time">09:45</span>Gruppenaufteilung – <b>Wahl A:</b> Zeitreise-Tour (Teatro Romano → Alcazaba → Kathedrale → Picasso-Museum) <b>oder Wahl B:</b> Street-Art-Tour SOHO + Kreativaufgabe "Mein Street-Art-Motiv"</div>
+      <div class="slot"><span class="time">13:00</span>Treffpunkt aller Gruppen, Mittagspause</div>
+      <div class="slot"><span class="time">14:00–16:30</span>Freizeit Málaga, danach Rückfahrt Zug</div>
+      <div class="slot"><span class="time">17:30–18:00</span><b>Präsentation</b> der Street-Art-Entwürfe</div>
+      <div class="slot"><span class="time">19:00</span>Abendessen</div>
+      <div class="slot"><span class="time">ab 20:00</span><b>🎉 Beachparty</b> – Musik &amp; Snacks am Strand (letzter Abend!)</div>
+      <div class="slot"><span class="time">22:00 / 00:00</span>Zimmer / Nachtruhe</div>
+    </div>
+  </details>
+
+  <details class="day">
+    <summary>Fr 18.09. – Abreise <span class="arrow">▶</span></summary>
+    <div class="body">
+      <div class="slot"><span class="time">09:00</span>Frühstück (heute etwas später)</div>
+      <div class="slot"><span class="time">09:00–11:30</span>Packen, Zimmer aufräumen</div>
+      <div class="slot"><span class="time">12:00</span>Check-out (Gepäck in der Aufbewahrung)</div>
+      <div class="slot"><span class="time">12:00–13:00</span><b>Gemeinsame Abschlussrunde</b> am Strand – Austausch, Highlights der Woche</div>
+      <div class="slot"><span class="time">13:00–13:45</span>Letzte freie Zeit am Strand</div>
+      <div class="slot"><span class="time">14:00</span>Zug (Cercanías C1) zum Flughafen</div>
+      <div class="slot"><span class="time">17:20</span>Abflug EJU5106 → 20:45 Uhr Ankunft BER</div>
+    </div>
+  </details>
+</section>
+
+<!-- ============ REGELN ============ -->
+<section class="panel" id="regeln" role="tabpanel">
+  <div class="card">
+    <h2>📋 Hotel-Regeln</h2>
+    <ul class="nice">
+      <li>Rücksicht auf andere Gäste – Zimmerlautstärke bitte reduzieren, vor allem abends</li>
+      <li>Pool nur während der Öffnungszeiten nutzen</li>
+      <li>Zimmer &amp; Schlüssel sorgsam behandeln, Schäden sofort an der Rezeption melden</li>
+      <li>Rauchen nur in ausgewiesenen Bereichen</li>
+      <li>Eigenes Handtuch für den Pool mitbringen</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>⭐ Unsere gemeinsamen Regeln</h2>
+    <ul class="nice">
+      <li><b>22:00 Uhr:</b> alle sind auf ihrem Zimmer</li>
+      <li><b>00:00 Uhr:</b> Nachtruhe – niemand verlässt nachts Zimmer oder Hotel</li>
+      <li>Ausweis/Reisepass immer griffbereit mitführen (Pflicht am Mittwoch in Gibraltar!)</li>
+      <li>Handynummern der Begleitpersonen speichern · in festen Kleingruppen bleiben</li>
+      <li>Bei Freizeit: Treffpunkte &amp; -zeiten einhalten</li>
+      <li>Verantwortungsvoll mit Taschengeld &amp; Wertsachen umgehen</li>
+      <li>An Sonnenschutz &amp; ausreichend Trinken denken</li>
+      <li>Rücksichtsvolles Verhalten in der Öffentlichkeit</li>
+    </ul>
+  </div>
+
+  <div class="emg">
+    <b>📞 Notfallnummern</b>
+    Reiseleitung (unsere Gruppe): +49 15751557603<br>
+    Agitour vor Ort: Gunda Gabriel +34 629 84 59 60 (dt.), Loli Lobato +34 630 68 59 55 (engl./span.)<br>
+    CTS-Notruf 24/7: +49 (0)180 5 25 06 80 · Hotel Natursun: +34 951 24 13 64
+  </div>
+</section>
+
+<!-- ============ ERGEBNISSE ============ -->
+<section class="panel" id="ergebnisse" role="tabpanel">
+  <div class="card">
+    <h2>📸 Unsere Ergebnisse und Erfahrungen</h2>
+    <p>Hier sammeln wir gemeinsam die schönsten Momente der Woche!</p>
+  </div>
+
+  <div class="card">
+    <h3>🦆 Montag – GooseChase durch Málaga</h3>
+    <p>Die Missionen laufen über die GooseChase-App. Nach der Rallye lädt Frau Schaeffer-Lange die besten
+    Ergebnisse hier hoch.</p>
+    <div class="callout">
+      🔧 <b>Platzhalter:</b> Hier kommt nach der Fahrt das Padlet mit den GooseChase-Highlights rein.
+    </div>
+    <!-- PADLET-EMBED-GOOSECHASE -->
+  </div>
+
+  <div class="card">
+    <h3>🎨 Donnerstag – Street-Art-Tour SOHO</h3>
+    <p>Wart ihr in der Street-Art-Gruppe? Macht ein Foto von eurem selbst gestalteten Street-Art-Motiv und
+    postet es hier – <b>kein Login nötig!</b></p>
+    <div class="callout">
+      🔧 <b>Platzhalter:</b> Hier kommt das Padlet zum Hochladen der Street-Art-Entwürfe rein.
+    </div>
+    <!-- PADLET-EMBED-STREETART -->
+  </div>
+</section>
+
+</main>
+
+<footer>Klassenfahrt Málaga 2026 · Klasse 10.21 · Erstellt für die Reisewoche vom 13.–18.09.2026</footer>
+
+<script>
+  const tabs = document.querySelectorAll('nav.tabs button');
+  const panels = document.querySelectorAll('section.panel');
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.setAttribute('aria-selected','false'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.setAttribute('aria-selected','true');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>
